@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Employee Performance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000');
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            /* background: rgba(255,255,255,0.9); */
+            background: rgba(0,0,0,0.8);
+            padding: 30px;
+            border-radius: 10px;
+            animation: fadeIn 0.6s ease;
+        }
+        h2 {
+            text-align: center;
+            color: #007BFF;
+        }
+        form .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: antiquewhite;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .btn-submit {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+        .error-msg {
+            color: red;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .success-msg {
+            color: green;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+    nav {
+    background: #65a6eb;
+    padding: 15px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+    .nav-links {
+        list-style: none;
+        display: flex;        /* This makes items horizontal */
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links li {
+        display: inline;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .nav-links a:hover {
+        text-decoration: underline;
+    }
+    </style>
+
+    <script>
+        function setEmpName() {
+            var empSelect = document.getElementById("emp_id");
+            var empNameInput = document.getElementById("emp_name");
+            empNameInput.value = empSelect.options[empSelect.selectedIndex].dataset.name;
+        }
+    </script>
+</head>
+<body>
+<nav>
+    <div class="logo">HR PROMOTION PREDICTION SYSTEM</div>
+
+    <ul class="nav-links">
+        <li><a href="/dashboard"><i class="fas fa-arrow-left"></i> Return to Dashboard</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <h2>Add Employee Performance</h2>
+
+    {% if error %}
+        <div class="error-msg">{{ error }}</div>
+    {% endif %}
+    {% if success %}
+        <div class="success-msg">{{ success }}</div>
+    {% endif %}
+
+    <form method="POST" action="/add_performance">
+        <div class="form-group">
+            <label for="emp_id">Employee ID</label>
+            <select id="emp_id" name="emp_id" onchange="setEmpName()" required>
+                <option value="">-- Select Employee ID --</option>
+                {% for emp in employees %}
+                    <option value="{{ emp.emp_id }}" data-name="{{ emp.emp_name }}">{{ emp.emp_id }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="emp_name">Employee Name</label>
+            <input type="text" id="emp_name" name="emp_name" readonly>
+        </div>
+
+
+        <div class="form-group">
+            <label>No. of Trainings</label>
+            <input type="number" name="no_of_trainings" min="0" onkeydown="if(event.key==='-'||event.key==='+'||event.key==='e') event.preventDefault()" required>
+        </div>
+
+        <div class="form-group">
+            <label>Previous Year Rating</label>
+            <input type="number" name="previous_year_rating" min="0" max="5" onkeydown="if(event.key==='-'||event.key==='+'||event.key==='e') event.preventDefault()" required>
+        </div>
+
+        <div class="form-group">
+            <label>Length of Service (Years)</label>
+            <input type="number" name="length_of_service" min="0" max="30" onkeydown="if(event.key==='-'||event.key==='+'||event.key==='e') event.preventDefault()" required>
+        </div>
+
+        <div class="form-group">
+            <label>Awards Won (0 or 1)</label>
+            <input type="number" name="awards_won" min="0" max="20" onkeydown="if(event.key==='-'||event.key==='+'||event.key==='e') event.preventDefault()" required>
+        </div>
+
+        <div class="form-group">
+            <label>Average Training Score</label>
+            <input type="number" name="avg_training_score" min="0" max="100" onkeydown="if(event.key==='-'||event.key==='+'||event.key==='e') event.preventDefault()" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Add Performance</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Edit Employee</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f6f9;
+}
+
+.container{
+width:500px;
+margin:auto;
+margin-top:40px;
+background:white;
+padding:25px;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+label{
+font-weight:bold;
+}
+
+input{
+width:100%;
+padding:8px;
+margin-bottom:12px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+button{
+width:100%;
+padding:10px;
+background:#2ecc71;
+color:white;
+border:none;
+border-radius:5px;
+font-size:16px;
+}
+
+button:hover{
+background:#27ae60;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Edit Employee</h2>
+
+<form method="POST">
+
+<label>Employee ID</label>
+<input type="text" value="{{employee.emp_id}}" readonly>
+
+<label>Employee Name</label>
+<input type="text" value="{{employee.emp_name}}" readonly>
+
+<label>Department</label>
+<input type="text" name="department" value="{{employee.department}}">
+
+<label>Education</label>
+<input type="text" name="education" value="{{employee.education}}">
+
+<label>Gender</label>
+<input type="text" name="gender" value="{{employee.gender}}">
+
+<label>Age</label>
+<input type="number" name="age" value="{{employee.age}}">
+
+<label>No of Trainings</label>
+<input type="number" name="no_of_trainings" value="{{employee.no_of_trainings}}">
+
+<label>Previous Year Rating</label>
+<input type="number" name="previous_year_rating" value="{{employee.previous_year_rating}}">
+
+<label>Length of Service</label>
+<input type="number" name="length_of_service" value="{{employee.length_of_service}}">
+
+<label>Awards Won</label>
+<input type="number" name="awards_won" value="{{employee.awards_won}}">
+
+<label>Average Training Score</label>
+<input type="number" name="avg_training_score" value="{{employee.avg_training_score}}">
+
+<button type="submit">Update Employee</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Prediction Result</title>
+
+<style>
+body{
+    background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000');
+    background-size: cover;
+    background-position: center;
+    font-family: 'Segoe UI';
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    width:60%;
+    background: rgba(0,0,0,0.8);
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    color:white;
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(-20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.icon{
+    font-size:70px;
+    margin:20px 0;
+    animation: pop 0.5s ease;
+}
+
+@keyframes pop{
+    from{transform:scale(0);}
+    to{transform:scale(1);}
+}
+
+.success{
+    color:#22c55e;
+    font-size:32px;
+    font-weight:bold;
+    animation: pulseGreen 2s infinite;
+}
+
+.fail{
+    color:#ef4444;
+    font-size:32px;
+    font-weight:bold;
+    animation: blink is infinite;
+}
+
+button{
+    padding:12px 30px;
+    background:#3b82f6;
+    border:none;
+    border-radius:10px;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#2563eb;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Employee Promotion Result</h2>
+
+{% if result == "Eligible" %}
+    <div class="icon">✅</div>
+    <div class="success">Eligible for Promotion</div>
+{% else %}
+    <div class="icon">❌</div>
+    <div class="fail">Not Eligible for Promotion</div>
+{% endif %}
+
+<br><br>
+
+<a href="/home">
+    <button>Go Back</button>
+</a>
+
+</div>
+
+</body>
+</html>

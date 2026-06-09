@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #2c3e50;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        nav {
+            background: #65a6eb;
+            padding: 15px;
+            color: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 10px;
+            font-weight: 500;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 5px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .card i {
+            font-size: 30px;
+            color: #248adf;
+        }
+
+        .card h2 {
+            margin: 10px 0;
+            font-size: 2em;
+        }
+
+        .card p {
+            font-weight: 600;
+            color: #555;
+        }
+
+        @media (max-width: 768px) {
+            .cards {
+                grid-template-columns: 1fr 1fr;
+            }
+            nav {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo"><i class="fas fa-chart-line"></i> HR PROMOTION PREDICTION SYSTEM</div>
+        <ul class="nav-links">
+            <!-- <li><a href="/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li> -->
+            <li><a href="/add_employee"><i class="fas fa-user-plus"></i> Add Employee</a></li>
+            <li><a href="/add_performance"><i class="fas fa-user-plus"></i> Add Performance</a></li>
+            <li><a href="/view_employee"><i class="fas fa-eye"></i>View Employee</a></i></li>
+            <li><a href="/home"><i class="fas fa-brain"></i> Prediction</a></li>
+            <li><a href="/about"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="/contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="/reports"><i class="fas fa-file-alt"></i> Reports</a></li>
+            <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
+
+        <div class="cards">
+            <div class="card">
+                <i class="fas fa-users"></i>
+                <h2>{{ total_emp or 0 }}</h2>
+                <p>Total Employees in our DataBase</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-chart-line"></i>
+                <h2>{{ total_pred or 0 }}</h2>
+                <p>Total Predictions</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-check-circle"></i>
+                <h2>{{ eligible or 0 }}</h2>
+                <p>Eligible</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-times-circle"></i>
+                <h2>{{ not_eligible or 0 }}</h2>
+                <p>Not Eligible</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

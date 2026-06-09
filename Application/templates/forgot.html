@@ -1,0 +1,103 @@
+<h2>Verify HR Details</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forgot Password</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: url("https://images.unsplash.com/photo-1551434678-e076c223a692") no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .forgot-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 15px;
+            width: 380px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(0,0,0,0.3);
+        }
+
+        .forgot-box h2 {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .forgot-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .forgot-box input[type="submit"] {
+            background: #ff6a00;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .forgot-box input[type="submit"]:hover {
+            background: #ee0979;
+        }
+
+        .back-link {
+            margin-top: 15px;
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="forgot-box">
+    <h2>Verify HR Details</h2>
+
+    <form action="/verify_hr" method="POST">
+            {% if error %}
+        <div style="
+            background:#ffe6e6;
+            color:#cc0000;
+            padding:10px;
+            border-radius:5px;
+            margin-top:10px;
+            text-align:center;">
+            {{ error }}
+        </div>
+    {% endif %}
+        <input type="email" name="email" placeholder="Enter HR Email" required>
+        <input type="text" name="emp_id" placeholder="Enter Employee ID" required>
+        <input type="submit" value="Verify">
+    </form>
+
+    <a href="/" class="back-link">Back to Login</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HR Login</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d") no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 15px;
+            width: 350px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(0,0,0,0.3);
+        }
+
+        .login-box h2 {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .login-box input[type="submit"] {
+            background: #00c6ff;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-box input[type="submit"]:hover {
+            background: #0072ff;
+        }
+
+        .forgot {
+            margin-top: 15px;
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+    <h2>HR Login</h2>
+
+    <form action="/login" method="POST">
+        {% if error %}
+        <div style="
+            background:#ffe6e6;
+            color:#cc0000;
+            padding:10px;
+            border-radius:5px;
+            margin-top:10px;
+            text-align:center;">
+            {{ error }}
+        </div>
+    {% endif %}
+        <input type="email" name="email" placeholder="Enter Email" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
+        <input type="submit" value="Login">
+    </form>
+
+    <a href="/forgot" class="forgot">Forgot Password?</a>
+</div>
+
+</body>
+</html>

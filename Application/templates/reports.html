@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Reports</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+}
+
+.container{
+width:80%;
+margin:auto;
+margin-top:40px;
+background:white;
+padding:20px;
+border-radius:8px;
+}
+
+h2{
+text-align:center;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th{
+background:#2c3e50;
+color:white;
+padding:10px;
+}
+
+td{
+padding:10px;
+text-align:center;
+border-bottom:1px solid #ddd;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Employee Reports</h2>
+
+<h3>Total Employees : {{total.total}}</h3>
+
+<h3>Employees with Awards</h3>
+
+<table>
+
+<tr>
+<th>Employee Name</th>
+<th>Awards Won</th>
+</tr>
+
+{% for a in awards %}
+
+<tr>
+<td>{{a.emp_name}}</td>
+<td>{{a.awards_won}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<h3>High Training Score Employees (>80)</h3>
+
+<table>
+
+<tr>
+<th>Employee Name</th>
+<th>Training Score</th>
+</tr>
+
+{% for s in scores %}
+
+<tr>
+<td>{{s.emp_name}}</td>
+<td>{{s.avg_training_score}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

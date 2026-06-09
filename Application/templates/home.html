@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promotion Prediction</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            color: #2c3e50;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background: #ffffff;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 1.5em;
+            color: #007BFF;
+            font-weight: 700;
+        }
+        .nav-links a {
+            text-decoration: none;
+            margin-left: 20px;
+            color: #555;
+            font-weight: 500;
+        }
+        .nav-links a:hover { color: #007BFF; }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 12px;
+        }
+        h1 { color: #007BFF; text-align: center; }
+        form { display: grid; gap: 15px; }
+        label { font-weight: 600; }
+        input, select { padding: 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; }
+        button { background: #007BFF; color: #fff; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        button:hover { background: #0056b3; }
+        .result { background: #e8f6f3; padding: 15px; border-left: 5px solid #16a085; font-weight: 600; margin-top: 15px; }
+        @media (max-width:768px){ .container { margin: 20px; } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><i class="fas fa-chart-line"></i> Promotion Prediction</div>
+        <div class="nav-links">
+            <a href="/home"><i class="fas fa-brain"></i> Prediction</a>
+            <a href="/dashboard"><i class="fas fa-tachometer-alt"></i> Return to Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Predict Employee Promotion</h1>
+
+        <form method="POST" action="/home">
+            <div class="form-group">
+                <label>Employee ID</label>
+                <input list="employee_ids" name="emp_id" id="emp_id" placeholder="Select or type Employee ID" required>
+                <datalist id="employee_ids">
+                    {% for emp in employee_list %}
+                        <option value="{{ emp.emp_id }}">{{ emp.emp_id }} - {{ emp.emp_name }}</option>
+                    {% endfor %}
+                </datalist>
+            </div>
+
+        
+
+            <div class="form-group"><label>Employee Name</label><input type="text" name="emp_name" id="emp_name" required></div>
+            <div class="form-group"><label>Department</label><input type="text" name="department" id="department" required></div>
+            <div class="form-group"><label>Education Level</label><input type="text" name="education" id="education" required></div>
+            <div class="form-group"><label>Gender</label><input type="text" name="gender" id="gender" required></div>
+            <div class="form-group"><label>Age</label><input type="number" name="age" id="age" min="18" max="70" onkeydown="if(event.key==='-'||event.key==='+'||event.key==='e') event.preventDefault()" required></div>
+            <div class="form-group"><label>No. of Trainings</label><input type="number" name="no_of_trainings" id="no_of_trainings" min="0" onkeydown="if(event.key==='-'||event.key==='+'||event.key==='e') event.preventDefault()" required></div>
+            <div class="form-group"><label>Previous Year Rating</label><input type="number" name="previous_year_rating" id="previous_year_rating" min="0" max="5" onkeydown="if(event.key==='-'||event.key==='+'||event.key==='e') event.preventDefault()" required></div>
+            <div class="form-group"><label>Length of Service (Years)</label><input type="number" name="length_of_service" id="length_of_service" min="0" max="30" onkeydown="if(event.key==='-'||event.key==='+'||event.key==='e') event.preventDefault()" required></div>
+            <div class="form-group"><label>Awards Won (0 or 1)</label><input type="number" name="awards_won" id="awards_won" min="0" max="20" onkeydown="if(event.key==='-'||event.key==='+'||event.key==='e') event.preventDefault()" required></div>
+            <div class="form-group"><label>Average Training Score</label><input type="number" name="avg_training_score" id="avg_training_score" min="0" max="100" onkeydown="if(event.key==='-'||event.key==='+'||event.key==='e') event.preventDefault()" required></div>
+
+            <button type="submit" class="btn-submit">Predict Promotion</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            Prediction Result: <strong>{{ prediction }}</strong>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<footer>&copy; All rights reserved.</footer>
+
+<!-- jQuery + AJAX to auto-fill fields if ID exists -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('#emp_id').on('input', function(){
+        var emp_id = $(this).val();
+        if(emp_id){
+            $.ajax({
+                url: '/get_employee_details/' + emp_id,
+                type: 'GET',
+                success: function(data){
+                    $('#emp_name').val(data.emp_name || '');
+                    $('#department').val(data.department || '');
+                    $('#education').val(data.education || '');
+                    $('#gender').val(data.gender || '');
+                    $('#age').val(data.age || '');
+                    $('#no_of_trainings').val(data.no_of_trainings || '');
+                    $('#previous_year_rating').val(data.previous_year_rating || '');
+                    $('#length_of_service').val(data.length_of_service || '');
+                    $('#awards_won').val(data.awards_won || '');
+                    $('#avg_training_score').val(data.avg_training_score || '');
+                }
+            });
+        } else {
+            $('input').val(''); // clear all fields if input empty
+        }
+    });
+});
+</script>
+
+</body>
+</html>
